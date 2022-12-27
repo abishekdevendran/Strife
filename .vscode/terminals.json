@@ -1,0 +1,19 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Client",
+      "description": "This is main thread for NextJS client",
+      "commands": ["cd client", "npm run dev"]
+    },
+    {
+      "name": "Server",
+      "description": "This is main thread for express server",
+      "commands": ["cd server", "npm run dev"]
+    },
+    {
+      "name": "Terminal",
+      "description": "This is access thread"
+    }
+  ]
+}
