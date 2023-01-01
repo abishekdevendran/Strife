@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export type Tuser = {
   username: string;
@@ -8,16 +8,16 @@ export type Tuser = {
   githubID: string;
   isVerified: boolean;
   isBanned: boolean;
-}
+};
 
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
-  email: String,
+  email: { type: String, unique: true, required: true },
   createdAt: String,
   githubID: String,
   isVerified: Boolean,
-  isBanned: Boolean,
+  isBanned: Boolean
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

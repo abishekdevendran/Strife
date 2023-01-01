@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import root from './routes/_index';
 import login from './routes/login';
 import register from './routes/register';
+import verify from './routes/verify';
+import user from './routes/user';
 import { Tuser } from './models/User';
 dotenv.config();
 
@@ -20,7 +22,7 @@ declare module 'express-session' {
   }
 }
 
-app.use(helmet())
+app.use(helmet());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +30,8 @@ app.use(session);
 app.use('/', root);
 app.use('/login', login);
 app.use('/register', register);
-
+app.use('/verify', verify);
+app.use('/user', user);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
