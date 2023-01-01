@@ -3,6 +3,7 @@ import React from 'react';
 import LogoutButton from '../../components/LogoutButton';
 import VerifyButton from '../../components/VerifyButton';
 import dayjs from 'dayjs';
+import Head from 'next/head';
 
 export type IUser = {
   username: string;
@@ -15,16 +16,23 @@ export type IUser = {
 
 const Dashboard = ({ user }: any) => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      {/* pretty print createdat date */}
-      <p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
-      <p>Verified: {user.isVerified ? 'True' : 'False'}</p>
-      <LogoutButton />
-      {!user.isVerified && <VerifyButton user={user} />}
-    </div>
+    <>
+      <Head>
+        <title>{`${user.username}'s dashboard`}</title>
+        <meta name="description" content="User Dashboard" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <div>
+        <h1>Dashboard</h1>
+        <p>Username: {user.username}</p>
+        <p>Email: {user.email}</p>
+        {/* pretty print createdat date */}
+        <p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
+        <p>Verified: {user.isVerified ? 'True' : 'False'}</p>
+        <LogoutButton />
+        {!user.isVerified && <VerifyButton user={user} />}
+      </div>
+    </>
   );
 };
 

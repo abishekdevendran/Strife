@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerFormSchema, registerFormSchemaType } from '../../models/formSchema';
+import {
+  registerFormSchema,
+  registerFormSchemaType
+} from '../../models/formSchema';
 import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const Register = () => {
   const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
@@ -53,26 +57,33 @@ const Register = () => {
   };
 
   return (
-    <div>
-      Register
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <fieldset disabled={!interactive}>
-          <p>Username:</p>
-          <input {...register('username')} />
-          <p>{errors.username?.message}</p>
-          <p>Password:</p>
-          <input {...register('password')} />
-          <p>{errors.password?.message}</p>
-          <p>Confirm Password:</p>
-          <input {...register('confirmPassword')} type="password" />
-          <p>{errors.confirmPassword?.message}</p>
-          <p>Email:</p>
-          <input {...register('email')} />
-          <p>{errors.email?.message}</p>
-          <button type="submit">Submit</button>
-        </fieldset>
-      </form>
-    </div>
+    <>
+      <Head>
+        <title>Strife Login</title>
+        <meta name="description" content="Strife Register" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <div>
+        Register
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <fieldset disabled={!interactive}>
+            <p>Username:</p>
+            <input {...register('username')} />
+            <p>{errors.username?.message}</p>
+            <p>Password:</p>
+            <input {...register('password')} />
+            <p>{errors.password?.message}</p>
+            <p>Confirm Password:</p>
+            <input {...register('confirmPassword')} type="password" />
+            <p>{errors.confirmPassword?.message}</p>
+            <p>Email:</p>
+            <input {...register('email')} />
+            <p>{errors.email?.message}</p>
+            <button type="submit">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+    </>
   );
 };
 
