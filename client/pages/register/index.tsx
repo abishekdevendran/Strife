@@ -44,10 +44,11 @@ const Register = () => {
         body: JSON.stringify(data)
       });
       const result = await response.json();
-      if (response.status !== 200) {
+      if (!response.ok) {
         toast.error(result.message);
       } else {
         toast.success('Registartion successful. Redirecting...');
+        router.push('/dashboard');
       }
       console.log(result);
     } catch (error) {
@@ -59,7 +60,7 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>Strife Login</title>
+        <title>Strife Register</title>
         <meta name="description" content="Strife Register" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

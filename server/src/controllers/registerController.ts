@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import CryptoJS from 'crypto-js';
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
@@ -24,8 +23,10 @@ export default async function registerController(req: Request, res: Response) {
       //user already exists
       return res.status(409).json({ message: 'User already exists' });
     }
-    //hash password
-    const hashedPassword = await bcrypt.hash(unhashedPassword, 10);
+    //hash password using sha256
+    const hashedPassword = CryptoJS.SHA256(unhashedPassword).toString(
+      CryptoJS.enc.Base64
+    );
     //create user
     const newUser = new User({
       username,

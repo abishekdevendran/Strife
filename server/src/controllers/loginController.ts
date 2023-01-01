@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import CryptoJS from 'crypto-js';
 import { Request, Response } from 'express';
 import User, { Tuser } from '../models/User';
@@ -18,8 +17,10 @@ export default async function loginController(req: Request, res: Response) {
       return res.status(404).json({ message: 'User not found' });
     }
     const hashedPassword = user.password;
-    //compare passwords
-    const passwordsMatch = await bcrypt.compare(unhashedPassword, hashedPassword!);
+    //compare passwords using sha256
+    const passwordsMatch =
+      CryptoJS.SHA256(unhashedPassword).toString(CryptoJS.enc.Base64) ===
+      hashedPassword;
     if (!passwordsMatch) {
       return res.status(401).json({ message: 'Incorrect password' });
     }
