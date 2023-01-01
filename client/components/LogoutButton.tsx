@@ -10,12 +10,13 @@ const LogoutButton = () => {
     try {
       const response = await fetch('/api/user/logout', {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }
       });
       const result = await response.json();
-      if (response.status !== 200) {
+      if (!response.ok) {
         toast.error(result.message);
       } else {
         toast.success('Logout successful. Redirecting...');

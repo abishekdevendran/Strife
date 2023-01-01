@@ -2,18 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 
 //redirect to login page if not logged in and trying to access a restricted page
 export default async function authMiddleware(req: NextRequest) {
-  //define set of protected pages
-  const antiProtectedPages = ['/login*', '/register*'];
-  //check if the current page is protected
-  const isAntiProtected = antiProtectedPages.some((page) =>
-    //regex match
-    req.nextUrl.pathname.match(page)
-  );
-  //if the page is protected and the user is not logged in, redirect to login page
-  if (!isAntiProtected) {
+  const antiAuthPaths = ['/login', '/register'];
+  //check if path is in antiAuthPaths
+  const match=antiAuthPaths.some((path) => {
+    if (req.nextUrl.pathname === path) {
+      return true;
+    }
+  })
+  if(!match){
     return NextResponse.next();
   }
+  //if no cookies, redirect to login page
   const url = req.nextUrl.clone();
+  if (!req.cookies) {
+    return NextResponse.next();
+  }
   try {
     url.pathname = '/api/user';
     const res = await fetch(url, {
@@ -28,7 +31,6 @@ export default async function authMiddleware(req: NextRequest) {
     return NextResponse.next();
   } catch (err) {
     console.log(err);
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
   }
+  return NextResponse.next();
 }
