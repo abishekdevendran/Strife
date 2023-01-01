@@ -50,7 +50,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   try {
-    const res = await fetch(`http://localhost:3000/api/user`, {
+    //get url from req
+    const url = `${process.env.FRONTEND_URL!}/api/user`;
+    console.log(url);
+    const res = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -73,6 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     };
   } catch (err) {
+    console.log(err);
     return {
       redirect: {
         destination: '/login',
