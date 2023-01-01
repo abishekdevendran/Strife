@@ -4,6 +4,7 @@ import './utils/db';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cors from 'cors';
 
 import root from './routes/_index';
 import login from './routes/login';
@@ -23,6 +24,7 @@ declare module 'express-session' {
 }
 
 app.use(helmet());
+app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
