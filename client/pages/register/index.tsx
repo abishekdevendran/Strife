@@ -4,30 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerFormSchema, registerFormSchemaType } from '../../models/formSchema';
 import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
-import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
 const Register = () => {
   const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
   const [interactive, setInteractive] = useState(true);
   const router = useRouter();
-
-  const { error, isLoading } = useSWR('/api/user', async () => {
-    const res = await fetch('/api/user', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await res.json();
-    if (res.ok && data.user) {
-      toast.success('Already logged in. Redirecting to dashboard...');
-      router.push('/dashboard');
-      return;
-    }
-    setInteractive(true);
-    return data;
-  });
 
   const {
     register,
@@ -73,8 +55,6 @@ const Register = () => {
   return (
     <div>
       Register
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
       <form onSubmit={handleSubmit(submitHandler)}>
         <fieldset disabled={!interactive}>
           <p>Username:</p>

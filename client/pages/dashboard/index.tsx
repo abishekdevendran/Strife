@@ -1,6 +1,17 @@
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import LogoutButton from '../../components/LogoutButton';
+import VerifyButton from '../../components/VerifyButton';
+import dayjs from 'dayjs';
+
+export type IUser = {
+  username: string;
+  email: string;
+  createdAt: string;
+  isVerified: boolean;
+  githubID: string;
+  isBanned: boolean;
+};
 
 const Dashboard = ({ user }: any) => {
   return (
@@ -8,8 +19,11 @@ const Dashboard = ({ user }: any) => {
       <h1>Dashboard</h1>
       <p>Username: {user.username}</p>
       <p>Email: {user.email}</p>
-      <p>Created at: {user.createdAt}</p>
+      {/* pretty print createdat date */}
+      <p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
+      <p>Verified: {user.isVerified ? 'True' : 'False'}</p>
       <LogoutButton />
+      {!user.isVerified && <VerifyButton user={user} />}
     </div>
   );
 };
@@ -28,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   try {
-    const res = await fetch('http://localhost:3000/api/user', {
+    const res = await fetch(`http://localhost:3000/api/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
