@@ -32,7 +32,7 @@ const Login = () => {
         body: JSON.stringify(data)
       });
       const result = await response.json();
-      if (response.status !== 200) {
+      if (!response.ok) {
         toast.error(result.message);
       } else {
         toast.success('Login successful. Redirecting...');
