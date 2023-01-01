@@ -23,7 +23,7 @@ declare module 'express-session' {
   }
 }
 
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
