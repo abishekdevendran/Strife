@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, loginFormSchemaType } from '../../models/formSchema';
@@ -6,11 +6,20 @@ import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
 import Router from 'next/router';
 import Head from 'next/head';
+import UserContext from '../../contexts/UserContext';
 
 const Login = () => {
   const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
   const [interactive, setInteractive] = useState(true);
+  const { mutate, user } = useContext(UserContext);
   const router = Router;
+
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  },[user]);
+
   const {
     register,
     handleSubmit,
@@ -36,6 +45,7 @@ const Login = () => {
         toast.error(result.message);
       } else {
         toast.success('Login successful. Redirecting...');
+        mutate();
         router.push('/dashboard');
       }
       console.log(result);

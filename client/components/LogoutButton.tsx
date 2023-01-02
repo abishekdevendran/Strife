@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import UserContext from '../contexts/UserContext';
 
 const LogoutButton = () => {
   const [interactive, setInteractive] = useState(true);
-  const router = useRouter();
+  const { mutate} = useContext(UserContext);
   const onClick = async () => {
     setInteractive(false);
     try {
@@ -19,8 +19,8 @@ const LogoutButton = () => {
       if (!response.ok) {
         toast.error(result.message);
       } else {
+        mutate();
         toast.success('Logout successful. Redirecting...');
-        router.push('/');
       }
     } catch (error) {
       toast.error('Something went wrong. Please try again.');
