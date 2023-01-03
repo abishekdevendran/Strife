@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import useSWR from 'swr';
+import LoadingPage from '../../components/LoadingPage';
 
 const Token = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Token = () => {
     return data;
   });
   if (error) return <div>Error</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingPage />;
   return null;
 };
 

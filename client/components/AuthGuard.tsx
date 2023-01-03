@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { ReactNode, useContext, useEffect } from 'react';
 import UserContext from '../contexts/UserContext';
+import LoadingPage from './LoadingPage';
 
 const AuthGuard = ({ children }: { children: ReactNode }) => {
   const router=useRouter();
@@ -11,7 +12,7 @@ const AuthGuard = ({ children }: { children: ReactNode }) => {
     }
   },[user, isLoading, router]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   if (!isLoading && user) {
     return <>{children}</>;

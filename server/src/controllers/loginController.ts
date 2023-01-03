@@ -25,7 +25,7 @@ export default async function loginController(req: Request, res: Response) {
       return res.status(401).json({ message: 'Incorrect password' });
     }
     //set session
-    req.session.user = (user as Tuser);
+    req.session.user = user as Tuser;
     return res.status(200).json({ message: 'Login successful' });
   }catch(err){
     return res.status(500).json({ message: 'Internal server error' });

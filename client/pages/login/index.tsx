@@ -7,6 +7,7 @@ import CryptoJS from 'crypto-js';
 import Router from 'next/router';
 import Head from 'next/head';
 import UserContext from '../../contexts/UserContext';
+import GithubOAuth from '../../components/GithubOAuth';
 
 const Login = () => {
   const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
@@ -18,7 +19,7 @@ const Login = () => {
     if (user) {
       router.push('/dashboard');
     }
-  },[user]);
+  }, [user]);
 
   const {
     register,
@@ -40,15 +41,21 @@ const Login = () => {
         },
         body: JSON.stringify(data)
       });
-      const result = await response.json();
       if (!response.ok) {
+        if (response.status === 500) {
+          toast.error(
+            'Server temporarily unavailable. Please try again later.'
+          );
+          return;
+        }
+        const result = await response.json();
+        console.error(result);
         toast.error(result.message);
       } else {
         toast.success('Login successful. Redirecting...');
         mutate();
         router.push('/dashboard');
       }
-      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -74,6 +81,7 @@ const Login = () => {
             <button type="submit">Submit</button>
           </fieldset>
         </form>
+        <GithubOAuth />
       </div>
     </>
   );
