@@ -33,10 +33,10 @@ export default session({
   proxy: true,
   name: 'strifeAuth',
   cookie: {
-    // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
-    sameSite: 'none',
-    // secure: process.env.NODE_ENV === 'production',
-    secure: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
+    // sameSite: 'none',
+    secure: process.env.NODE_ENV === 'production',
+    // secure: true,
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     httpOnly: true
   }
