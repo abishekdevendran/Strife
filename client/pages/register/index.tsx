@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -9,11 +9,19 @@ import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import UserContext from '../../contexts/UserContext';
 
 const Register = () => {
   const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
   const [interactive, setInteractive] = useState(true);
+  const { mutate, user } = useContext(UserContext);
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user]);
 
   const {
     register,
@@ -48,6 +56,7 @@ const Register = () => {
         toast.error(result.message);
       } else {
         toast.success('Registartion successful. Redirecting...');
+        mutate();
         router.push('/dashboard');
       }
       console.log(result);
