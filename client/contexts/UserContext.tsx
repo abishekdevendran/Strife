@@ -22,20 +22,26 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     data: user,
     mutate,
     isLoading
-  } = SWRImmutable('/api/user', async () => {
-    const res = await fetch('/api/user', {
-      // no cache
-      headers: {
-        'Cache-Control': 'no-cache'
+  } = SWRImmutable(
+    '/api/user',
+    async () => {
+      const res = await fetch('/api/user', {
+        // no cache
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        return data.user;
       }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      console.log(data);
-      return data.user;
+      return null;
+    },
+    {
+      revalidateOnFocus: true
     }
-    return null;
-  });
+  );
 
   useEffect(() => {
     if (!initUser && user) {

@@ -18,7 +18,7 @@ const Token = () => {
             toast.error(data.message);
           }
           if (res.ok) {
-            toast.success(data.message);
+            toast.success(`${data.message}, redirecting...`);
             router.push('/dashboard');
           }
           router.push('/login');
@@ -33,7 +33,7 @@ const Token = () => {
     }
   }, [isReady]);
   if (isLoading || !isReady) return <LoadingPage />;
-  if (error){
+  if (error) {
     toast.error('Something went wrong.');
     router.push('/login');
     return <div>error</div>;
