@@ -48,7 +48,7 @@ export default async function userMerger(json: any, req: Request) {
       //add new entry
       const newUser = new User({
         email: gitUser.email,
-        githubId: gitUser.id,
+        githubID: gitUser.id,
         username: gitUser.login,
         createdAt: new Date().toISOString()
       });
