@@ -62,18 +62,6 @@ export default async function userMerger(json: any, req: Request) {
     if (verifiedEmails.length === 0) {
       return { message: 'No verified email found.', status: 404 };
     }
-    // const verifiedEmail = verifiedEmails[0];
-    // const verifiedUser = possibleUsers.find(
-    //   (user) => user.email === verifiedEmail.email
-    // );
-    // if (verifiedUser) {
-    //   //add github id to existing user
-    //   verifiedUser.githubID = gitUser.id;
-    //   verifiedUser.isVerified = true;
-    //   await verifiedUser.save();
-    //   req.session.user = verifiedUser as Tuser;
-    //   return { message: 'OAuth method added successfully.', status: 200 };
-    // }
     for (const verifiedEmail of verifiedEmails) {
       const verifiedUser = possibleUsers.find(
         (user) => user.email === verifiedEmail.email
