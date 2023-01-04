@@ -1,29 +1,43 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import LoadingPage from '../../components/LoadingPage';
 
 const Token = () => {
   const router = useRouter();
-  const { token } = router.query;
-  const { error, isLoading } = useSWR('verify', async () => {
-    if (!token) return;
-    const res = await fetch(`/api/verify/${token}`);
-    const data = await res.json();
-    if (!res.ok && data.message) {
-      toast.error(data.message);
+  const { query, isReady } = router;
+  const { error, isLoading, mutate } = useSWRImmutable(
+    'verify',
+    isReady
+      ? async () => {
+          if (!query.token) return;
+          const res = await fetch(`/api/verify/${query.token}`);
+          const data = await res.json();
+          if (!res.ok && data.message) {
+            toast.error(data.message);
+          }
+          if (res.ok) {
+            toast.success(data.message);
+            router.push('/dashboard');
+          }
+          router.push('/login');
+          console.log(data);
+          return data;
+        }
+      : null
+  );
+  useEffect(() => {
+    if (isReady) {
+      mutate();
     }
-    if (res.ok) {
-      toast.success(data.message);
-      router.push('/dashboard');
-    }
+  }, [isReady]);
+  if (isLoading || !isReady) return <LoadingPage />;
+  if (error){
+    toast.error('Something went wrong.');
     router.push('/login');
-    console.log(data);
-    return data;
-  });
-  if (error) return <div>Error</div>;
-  if (isLoading) return <LoadingPage />;
+    return <div>error</div>;
+  }
   return null;
 };
 
