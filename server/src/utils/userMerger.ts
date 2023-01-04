@@ -69,6 +69,7 @@ export default async function userMerger(json: any, req: Request) {
     if (verifiedUser) {
       //add github id to existing user
       verifiedUser.githubID = gitUser.id;
+      verifiedUser.isVerified = true;
       await verifiedUser.save();
       req.session.user = verifiedUser as Tuser;
       return { message: 'OAuth method added successfully.', status: 200 };
