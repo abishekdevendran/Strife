@@ -18,17 +18,17 @@ const app: Express = express();
 const PORT = process.env.PORT!;
 
 declare module 'express-session' {
-  interface SessionData {
-    user: Tuser;
-  }
+	interface SessionData {
+		user: Tuser;
+	}
 }
 
 app.use(helmet());
 app.use(
-  cors({
-    credentials: true,
-    origin: [process.env.FRONTEND_URL!, 'http://localhost:3000']
-  })
+	cors({
+		credentials: true,
+		origin: [process.env.FRONTEND_URL!, 'http://localhost:3000'],
+	})
 );
 app.use(morgan('tiny'));
 app.use(express.json());
@@ -40,5 +40,5 @@ app.use('/register', register);
 app.use('/verify', verify);
 app.use('/user', user);
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+	console.log(`Server is running on port ${PORT}`);
 });
