@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, loginFormSchemaType } from '../../models/formSchema';
 import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
-import Router from 'next/router';
+import useRouter from 'next/router';
 import Head from 'next/head';
 import UserContext from '../../contexts/UserContext';
 import GithubOAuth from '../../components/GithubOAuth';
@@ -13,13 +13,13 @@ const Login = () => {
 	const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
 	const [interactive, setInteractive] = useState(true);
 	const { mutate, user } = useContext(UserContext);
-	const router = Router;
+	const router = useRouter();
 	const { query, isReady } = router;
 
 	useEffect(() => {
 		if (isReady) {
 			if (user) {
-				if(query.redirect){
+				if (query.redirect) {
 					console.log(query.redirect);
 					router.push(query.redirect as string);
 					return;
