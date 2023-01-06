@@ -14,12 +14,20 @@ const Login = () => {
 	const [interactive, setInteractive] = useState(true);
 	const { mutate, user } = useContext(UserContext);
 	const router = Router;
+	const { query, isReady } = router;
 
 	useEffect(() => {
-		if (user) {
-			router.push('/dashboard');
+		if (isReady) {
+			if (user) {
+				if(query.redirect){
+					console.log(query.redirect);
+					router.push(query.redirect as string);
+					return;
+				}
+				router.push('/dashboard');
+			}
 		}
-	}, [user]);
+	}, [user, isReady, query]);
 
 	const {
 		register,

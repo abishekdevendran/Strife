@@ -8,7 +8,8 @@ const AuthGuard = ({ children }: { children: ReactNode }) => {
 	const { user, isLoading } = useContext(UserContext);
 	useEffect(() => {
 		if (!isLoading && !user) {
-			router.push('/login');
+			const redirect = router.asPath;
+			router.push({ pathname: '/login', query: redirect ? { redirect } : {} });
 		}
 	}, [user, isLoading, router]);
 	if (isLoading) {
