@@ -42,7 +42,7 @@ export default async function verifyEmail(req: Request) {
 		//delete token
 		await EmailToken.deleteOne({ _userId: user!._id });
 		//update session
-		req.session.user = user as Tuser;
+		req.session.user = user as unknown as Tuser;
 		//send response
 		return {
 			status: 200,

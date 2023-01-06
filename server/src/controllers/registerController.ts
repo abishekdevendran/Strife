@@ -36,11 +36,12 @@ export default async function registerController(req: Request, res: Response) {
 			githubID: '',
 			isVerified: false,
 			isBanned: false,
+			friends: []
 		});
 		//save user
 		const savedUser = await newUser.save();
 		//set session
-		req.session.user = savedUser as Tuser;
+		req.session.user = savedUser as unknown as Tuser & Types.ObjectId;
 		//generate email token
 		generateEmailToken(savedUser as unknown as Tuser & Types.ObjectId);
 		return res.status(201).json({ message: 'User created' });

@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 import User, { Tuser } from '../models/User';
 
 export default async function loginController(req: Request, res: Response) {
@@ -25,7 +26,7 @@ export default async function loginController(req: Request, res: Response) {
 			return res.status(401).json({ message: 'Incorrect password' });
 		}
 		//set session
-		req.session.user = user as Tuser;
+		req.session.user = user as unknown as Tuser & Types.ObjectId;
 		return res.status(200).json({ message: 'Login successful' });
 	} catch (err) {
 		return res.status(500).json({ message: 'Internal server error' });

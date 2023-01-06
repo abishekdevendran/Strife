@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWRImmutable from 'swr/immutable';
 import LoadingPage from '../../components/LoadingPage';
+import UserContext from '../../contexts/UserContext';
 
 const Token = () => {
 	const router = useRouter();
 	const { query, isReady } = router;
+	const { mutate: userMutate } = useContext(UserContext);
 	const { error, isLoading, mutate } = useSWRImmutable(
 		'verify',
 		isReady
@@ -19,6 +21,7 @@ const Token = () => {
 					}
 					if (res.ok) {
 						toast.success(`${data.message}, redirecting...`);
+						userMutate();
 						router.push('/dashboard');
 					}
 					router.push('/login');
