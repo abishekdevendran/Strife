@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, CSSProperties } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 const VerifyButton = ({ user }: any) => {
@@ -31,7 +31,12 @@ const VerifyButton = ({ user }: any) => {
 		<div>
 			{hasFetched && (
 				<>
-					Verify Cooldown: {hours}:{minutes}:{seconds}
+					Verify Cooldown:{' '}
+					<span className="countdown font-mono text-2xl">
+						<span style={{ '--value': hours } as CSSProperties}></span>:
+						<span style={{ '--value': minutes } as CSSProperties}></span>:
+						<span style={{ '--value': seconds } as CSSProperties}></span>
+					</span>
 				</>
 			)}
 			<button onClick={regenerateHandler} disabled={!interactive}>

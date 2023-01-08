@@ -10,11 +10,12 @@ import CryptoJS from 'crypto-js';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import UserContext from '../../contexts/UserContext';
+import LoadingPage from '../../components/LoadingPage';
 
 const Register = () => {
 	const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
 	const [interactive, setInteractive] = useState(true);
-	const { mutate, user } = useContext(UserContext);
+	const { mutate, user, isLoading } = useContext(UserContext);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -65,7 +66,7 @@ const Register = () => {
 		}
 		setInteractive(true);
 	};
-
+	if (isLoading) return <LoadingPage />;
 	return (
 		<>
 			<Head>
@@ -78,16 +79,16 @@ const Register = () => {
 				<form onSubmit={handleSubmit(submitHandler)}>
 					<fieldset disabled={!interactive}>
 						<p>Username:</p>
-						<input {...register('username')} />
+						<input {...register('username')} type="text" />
 						<p>{errors.username?.message}</p>
 						<p>Password:</p>
-						<input {...register('password')} />
+						<input {...register('password')} type="text" />
 						<p>{errors.password?.message}</p>
 						<p>Confirm Password:</p>
 						<input {...register('confirmPassword')} type="password" />
 						<p>{errors.confirmPassword?.message}</p>
 						<p>Email:</p>
-						<input {...register('email')} />
+						<input {...register('email')} type="email" />
 						<p>{errors.email?.message}</p>
 						<button type="submit">Submit</button>
 					</fieldset>

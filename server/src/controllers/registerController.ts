@@ -36,7 +36,7 @@ export default async function registerController(req: Request, res: Response) {
 			githubID: '',
 			isVerified: false,
 			isBanned: false,
-			friends: []
+			friends: [],
 		});
 		//save user
 		const savedUser = await newUser.save();
