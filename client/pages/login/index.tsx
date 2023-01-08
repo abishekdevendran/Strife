@@ -4,15 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, loginFormSchemaType } from '../../models/formSchema';
 import { toast } from 'react-hot-toast';
 import CryptoJS from 'crypto-js';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import UserContext from '../../contexts/UserContext';
 import GithubOAuth from '../../components/GithubOAuth';
+import LoadingPage from '../../components/LoadingPage';
 
 const Login = () => {
 	const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
 	const [interactive, setInteractive] = useState(true);
-	const { mutate, user } = useContext(UserContext);
+	const { mutate, user, isLoading } = useContext(UserContext);
 	const router = useRouter();
 	const { query, isReady } = router;
 
@@ -69,6 +70,7 @@ const Login = () => {
 		}
 		setInteractive(true);
 	};
+	if (isLoading) return <LoadingPage />;
 	return (
 		<>
 			<Head>
@@ -81,12 +83,14 @@ const Login = () => {
 				<form onSubmit={handleSubmit(submitHandler)}>
 					<fieldset disabled={!interactive}>
 						<p>Username:</p>
-						<input {...register('username')} />
+						<input {...register('username')} type="text" />
 						<p>{errors.username?.message}</p>
 						<p>Password:</p>
 						<input {...register('password')} type="password" />
 						<p>{errors.password?.message}</p>
-						<button type="submit">Submit</button>
+						<button type="submit" className="btn btn-primary">
+							Submit
+						</button>
 					</fieldset>
 				</form>
 				<GithubOAuth />

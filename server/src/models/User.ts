@@ -10,10 +10,10 @@ export interface Tuser extends mongoose.Document {
 	isBanned: boolean;
 	// array of user ids
 	friends: string[];
-};
+}
 
 const userSchema = new mongoose.Schema({
-	username: { type: String, unique: true},
+	username: { type: String, unique: true },
 	password: String,
 	email: { type: String, unique: true, required: true },
 	createdAt: String,
