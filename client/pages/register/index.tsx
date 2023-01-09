@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import UserContext from '../../contexts/UserContext';
 import LoadingPage from '../../components/LoadingPage';
+import GithubOAuth from '../../components/GithubOAuth';
 
 const Register = () => {
 	const secretKey = process.env.NEXT_PUBLIC_COUPLING_SECRET;
@@ -74,25 +75,61 @@ const Register = () => {
 				<meta name="description" content="Strife Register" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-			<div>
-				Register
-				<form onSubmit={handleSubmit(submitHandler)}>
-					<fieldset disabled={!interactive}>
-						<p>Username:</p>
-						<input {...register('username')} type="text" />
-						<p>{errors.username?.message}</p>
-						<p>Password:</p>
-						<input {...register('password')} type="text" />
-						<p>{errors.password?.message}</p>
-						<p>Confirm Password:</p>
-						<input {...register('confirmPassword')} type="password" />
-						<p>{errors.confirmPassword?.message}</p>
-						<p>Email:</p>
-						<input {...register('email')} type="email" />
-						<p>{errors.email?.message}</p>
-						<button type="submit">Submit</button>
-					</fieldset>
-				</form>
+			<div className="page w-full min-h-full flex justify-center items-center">
+				<div className="card w-96 flex items-center bg-base-300 py-12 px-8 mt-32 mb-16">
+					<h2 className="prose text-5xl font-extrabold mb-8">Register</h2>
+					<form
+						onSubmit={handleSubmit(submitHandler)}
+						className="form-control w-full"
+					>
+						<fieldset
+							disabled={!interactive}
+							className="form-control w-full flex items-center justify-center"
+						>
+							<p className="label text-lg mt-4">Username:</p>
+							<input
+								{...register('username')}
+								type="text"
+								className="input w-full"
+							/>
+							<p>{errors.username?.message}</p>
+							<p className="label text-lg mt-4">Password:</p>
+							<input
+								{...register('password')}
+								type="text"
+								className="input w-full"
+							/>
+							<p>{errors.password?.message}</p>
+							<p className="label text-lg mt-4">Confirm Password:</p>
+							<input
+								{...register('confirmPassword')}
+								type="password"
+								className="input w-full"
+							/>
+							<p>{errors.confirmPassword?.message}</p>
+							<p className="label text-lg mt-4">Email:</p>
+							<input
+								{...register('email')}
+								type="email"
+								className="input w-full"
+							/>
+							<p>{errors.email?.message}</p>
+							<span className="w-full grid grid-cols-2 gap-x-4 mt-4">
+								<button type="submit" className="btn btn-primary">
+									Submit
+								</button>
+								<button
+									type="reset"
+									className="btn btn-outline"
+									onClick={() => router.push('/login')}
+								>
+									Login
+								</button>
+							</span>
+						</fieldset>
+					</form>
+					<GithubOAuth />
+				</div>
 			</div>
 		</>
 	);

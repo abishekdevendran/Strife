@@ -53,7 +53,6 @@ const friendDashboard = () => {
 			<p>Email: {user.email}</p>
 			<p>Created At: {user.createdAt}</p>
 			<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
-			<p>Github ID: {user.githubID}</p>
 			{user.isFriend && <p>user.friends</p>}
 		</div>
 	);

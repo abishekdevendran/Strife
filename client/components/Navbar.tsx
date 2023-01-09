@@ -2,6 +2,9 @@ import dynamic from 'next/dynamic';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { toast } from 'react-hot-toast';
+import UserContext from '../contexts/UserContext';
+import LogoutButton from './LogoutButton';
 
 const BiSun = dynamic(
 	() =>
@@ -26,48 +29,41 @@ const Navbar = () => {
 	const [mounted, setMounted] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const { theme, setTheme } = useTheme();
+	const { user } = useContext(UserContext);
 	const themeMenu = useRef<HTMLDivElement>(null);
 	const themeMenuButton = useRef<HTMLDivElement>(null);
-	//TODO
-	const dropDownHelper = (e: React.ChangeEvent<HTMLDivElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
-		const specialTarget = document.querySelector('.special-target')!;
-		console.log(document.activeElement);
-		if(document.activeElement===specialTarget){
-			(document.activeElement as HTMLElement).blur();
-		}
-		specialTarget.classList.toggle('dropdown-open');
-		console.log(e.target);
-	}
 	const themeHandler = () => {
-		console.log(theme);
 		switch (theme) {
 			case 'pastel':
-				setTheme('forest');
+				setTheme('dark');
+				toast.success('Dark');
 				break;
-			case 'forest':
-				setTheme('black');
+			case 'dark':
+				setTheme('valentine');
+				toast.success('Valentine');
 				break;
-			case 'black':
-				setTheme('business');
+			case 'valentine':
+				setTheme('night');
+				toast.success('Night');
 				break;
-			case 'business':
+			case 'night':
 				setTheme('pastel');
+				toast.success('Pastel');
 				break;
 			default:
 				setTheme('pastel');
+				toast.success('Pastel');
 		}
 	};
 	const themeIcon = () => {
 		switch (theme) {
 			case 'pastel':
 				return <BiSun className="h-full w-full" />;
-			case 'forest':
+			case 'dark':
 				return <BiMoon className="h-full w-full" />;
-			case 'black':
+			case 'valentine':
 				return <BiSun className="h-full w-full" />;
-			case 'business':
+			case 'night':
 				return <BiMoon className="h-full w-full" />;
 			default:
 				return <BiSun className="h-full w-full" />;
@@ -83,10 +79,10 @@ const Navbar = () => {
 		}
 	}, [isOpen]);
 	return (
-		<div className="navbar bg-base-100">
+		<div className="navbar absolute z-50 top-0 left-0 bg-base-300">
 			<div className="flex-1">
-				<Link className="btn btn-ghost normal-case text-xl" href={'/'}>
-					Strife
+				<Link className="btn btn-ghost normal-case" href={'/'}>
+					<h1 className="text-4xl font-black tracking-tight">Strife</h1>
 				</Link>
 			</div>
 			<div className="flex-none">
@@ -96,10 +92,7 @@ const Navbar = () => {
 				>
 					{mounted && themeIcon()}
 				</div>
-				<div
-					className="dropdown dropdown-end"
-					ref={themeMenu}
-				>
+				{user&&<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
 					<div
 						tabIndex={0}
 						className="btn btn-ghost btn-circle avatar select-none"
@@ -121,7 +114,7 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 transition-all delay-150"
 					>
 						<li>
 							<a className="justify-between">
@@ -133,10 +126,10 @@ const Navbar = () => {
 							<a>Settings</a>
 						</li>
 						<li>
-							<a>Logout</a>
+							<LogoutButton/>
 						</li>
 					</ul>
-				</div>
+				</div>}
 			</div>
 		</div>
 	);

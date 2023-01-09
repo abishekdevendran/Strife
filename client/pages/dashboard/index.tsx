@@ -20,13 +20,12 @@ const Dashboard = () => {
 				<meta name="description" content="User Dashboard" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-				<div>
+				<div className='page min-h-full'>
 					<h1>Dashboard</h1>
 					<p>Username: {user.username}</p>
 					<p>Email: {user.email}</p>
 					<p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
 					<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
-					<p>Github ID: {user.githubID}</p>
 					<LogoutButton />
 					{!user.isVerified && <VerifyButton user={user} />}
 				</div>
