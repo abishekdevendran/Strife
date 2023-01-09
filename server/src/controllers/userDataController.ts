@@ -29,6 +29,7 @@ const userDataController = async (req: Request, res: Response) => {
 		}
 		let censoredUser: any = { ...req.session.user };
 		delete censoredUser.password;
+		delete censoredUser.githubID;
 		res.status(200).send({ user: censoredUser });
 	}
 };

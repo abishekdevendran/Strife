@@ -28,7 +28,7 @@ const LogoutButton = () => {
 		setInteractive(true);
 	};
 	return (
-		<button onClick={onClick} disabled={!interactive}>
+		<button onClick={onClick} disabled={!interactive} className={`btn disabled:btn-disabled`}>
 			Logout
 		</button>
 	);
