@@ -4,7 +4,8 @@ import { UserProvider } from '../contexts/UserContext';
 import AuthGuard from '../components/AuthGuard';
 import { Poppins } from '@next/font/google';
 import Layout from '../components/Layout';
-import { ThemeProvider } from '../contexts/ThemeContext';
+// import { ThemeProvider } from '../contexts/ThemeContext';
+import { ThemeProvider } from 'next-themes';
 
 const poppins = Poppins({
 	weight: ['600', '400'],
@@ -23,8 +24,8 @@ export default function App({
 	pageProps: any;
 }) {
 	return (
-		<div className={`${poppins.className} transition-all delay-1000`}>
-			<ThemeProvider>
+		<ThemeProvider themes={['pastel', 'forest', 'black', 'business']}>
+			<div className={`${poppins.className} transition-all delay-150`}>
 				<UserProvider>
 					<Layout>
 						{Component.requireAuth ? (
@@ -37,7 +38,7 @@ export default function App({
 					</Layout>
 					<Toaster />
 				</UserProvider>
-			</ThemeProvider>
-		</div>
+			</div>
+		</ThemeProvider>
 	);
 }

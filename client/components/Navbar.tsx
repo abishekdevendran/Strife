@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic';
-import React, { useContext } from 'react';
-import ThemeContext from '../contexts/ThemeContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+
 const BiSun = dynamic(
 	() =>
 		import('react-icons/bi').then((module) => {
@@ -21,7 +23,35 @@ const BiMoon = dynamic(
 );
 
 const Navbar = () => {
-	const { theme, toggleTheme } = useContext(ThemeContext);
+	const [mounted, setMounted] = useState(false);
+	const { theme, setTheme } = useTheme();
+	//TODO
+	const dropDownHelper = (e: React.ChangeEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const specialTarget = document.querySelector('.special-target')!;
+		specialTarget.classList.toggle('dropdown-open');
+		console.log(e.target);
+	}
+	const themeHandler = () => {
+		console.log(theme);
+		switch (theme) {
+			case 'pastel':
+				setTheme('forest');
+				break;
+			case 'forest':
+				setTheme('black');
+				break;
+			case 'black':
+				setTheme('business');
+				break;
+			case 'business':
+				setTheme('pastel');
+				break;
+			default:
+				setTheme('pastel');
+		}
+	};
 	const themeIcon = () => {
 		switch (theme) {
 			case 'pastel':
@@ -36,18 +66,25 @@ const Navbar = () => {
 				return <BiSun className="h-full w-full" />;
 		}
 	};
+
+	useEffect(() => setMounted(true), []);
 	return (
 		<div className="navbar bg-base-100">
 			<div className="flex-1">
-				<a className="btn btn-ghost normal-case text-xl">Strife</a>
+				<Link className="btn btn-ghost normal-case text-xl" href={'/'}>
+					Strife
+				</Link>
 			</div>
 			<div className="flex-none">
-				<div className="w-10 flex justify-center cursor-pointer hover:scale-110" onClick={toggleTheme}>
-					{themeIcon()}
+				<div
+					className="w-10 flex justify-center cursor-pointer hover:scale-110"
+					onClick={themeHandler}
+				>
+					{mounted && themeIcon()}
 				</div>
-				<div className="dropdown dropdown-end">
+				<div className="special-target dropdown dropdown-end">
 					<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-						<div className="w-10 rounded-full">
+						<div className="w-10 rounded-full" onClick={dropDownHelper as any}>
 							<img src="/defaultAvatar.jpg" />
 						</div>
 					</label>
