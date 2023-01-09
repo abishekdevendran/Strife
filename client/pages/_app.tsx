@@ -25,7 +25,9 @@ export default function App({
 }) {
 	return (
 		<ThemeProvider themes={['pastel', 'forest', 'black', 'business']}>
-			<div className={`${poppins.className} transition-all delay-150`}>
+			<div
+				className={`${poppins.className} transition-all delay-150 ease-in-out motion-reduce:transition-none`}
+			>
 				<UserProvider>
 					<Layout>
 						{Component.requireAuth ? (

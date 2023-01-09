@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 
@@ -24,12 +24,19 @@ const BiMoon = dynamic(
 
 const Navbar = () => {
 	const [mounted, setMounted] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 	const { theme, setTheme } = useTheme();
+	const themeMenu = useRef<HTMLDivElement>(null);
+	const themeMenuButton = useRef<HTMLDivElement>(null);
 	//TODO
 	const dropDownHelper = (e: React.ChangeEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		const specialTarget = document.querySelector('.special-target')!;
+		console.log(document.activeElement);
+		if(document.activeElement===specialTarget){
+			(document.activeElement as HTMLElement).blur();
+		}
 		specialTarget.classList.toggle('dropdown-open');
 		console.log(e.target);
 	}
@@ -68,6 +75,13 @@ const Navbar = () => {
 	};
 
 	useEffect(() => setMounted(true), []);
+	useEffect(() => {
+		if (!isOpen) {
+			(document.activeElement as HTMLElement).blur();
+		} else if (isOpen && !themeMenu.current?.contains(document.activeElement)) {
+			setIsOpen(false);
+		}
+	}, [isOpen]);
 	return (
 		<div className="navbar bg-base-100">
 			<div className="flex-1">
@@ -82,12 +96,29 @@ const Navbar = () => {
 				>
 					{mounted && themeIcon()}
 				</div>
-				<div className="special-target dropdown dropdown-end">
-					<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-						<div className="w-10 rounded-full" onClick={dropDownHelper as any}>
+				<div
+					className="dropdown dropdown-end"
+					ref={themeMenu}
+				>
+					<div
+						tabIndex={0}
+						className="btn btn-ghost btn-circle avatar select-none"
+						ref={themeMenuButton}
+						onBlur={(e) => {
+							setIsOpen(false);
+						}}
+						onClick={(e) => {
+							if (isOpen) {
+								setIsOpen(false);
+							} else {
+								setIsOpen(true);
+							}
+						}}
+					>
+						<div className="w-10 rounded-full">
 							<img src="/defaultAvatar.jpg" />
 						</div>
-					</label>
+					</div>
 					<ul
 						tabIndex={0}
 						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
