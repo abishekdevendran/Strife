@@ -20,15 +20,15 @@ const Dashboard = () => {
 				<meta name="description" content="User Dashboard" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-				<div className='page min-h-full'>
-					<h1>Dashboard</h1>
-					<p>Username: {user.username}</p>
-					<p>Email: {user.email}</p>
-					<p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
-					<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
-					<LogoutButton />
-					{!user.isVerified && <VerifyButton user={user} />}
-				</div>
+			<div className="card bg-base-300 sm:p-16 sm:py-20 p-8 py-12">
+				<h2 className="prose text-5xl font-extrabold mb-8">Dashboard</h2>
+				<p>Username: {user.username}</p>
+				<p>Email: {user.email}</p>
+				<p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
+				<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
+				<LogoutButton />
+				{!user.isVerified && <VerifyButton user={user} />}
+			</div>
 		</>
 	);
 };

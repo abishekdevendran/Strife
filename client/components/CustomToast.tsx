@@ -1,9 +1,12 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { resolveValue, Toast } from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 const CustomToast = ({ t }: { t: Toast }) => {
 	const toastClassMaker = () => {
-		let name = `btn btn-outline no-animation min-w-40 transition-all delay-150 ease-in-out`;
+		let name =
+			`btn btn-outline min-w-40 transition-all delay-150 ease-in-out bg-base-200` +
+			' '; //ensure gap at end here for concat
 		switch (t.type) {
 			case 'success':
 				name += 'btn-success gap-2';
@@ -17,7 +20,28 @@ const CustomToast = ({ t }: { t: Toast }) => {
 		}
 		return name;
 	};
-	return <div className={toastClassMaker()} style={t.style}>{resolveValue(t.message, t)}</div>;
+	return (
+		<motion.div
+			className={toastClassMaker()}
+			style={t.style}
+			initial={{
+				y: '-100%',
+			}}
+			animate={{
+				y: '100%',
+			}}
+			exit={{
+				y: '-200%',
+			}}
+			transition={{
+				type: 'spring',
+				stiffness: 300,
+				damping: 50,
+			}}
+		>
+			{resolveValue(t.message, t)}
+		</motion.div>
+	);
 };
 
 export default CustomToast;

@@ -1,16 +1,15 @@
 import '../styles/globals.css';
-import { ToastBar, Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { UserProvider } from '../contexts/UserContext';
 import AuthGuard from '../components/AuthGuard';
 import { Poppins } from '@next/font/google';
 import Layout from '../components/Layout';
 // import { ThemeProvider } from '../contexts/ThemeContext';
 import { ThemeProvider } from 'next-themes';
-import { ReactElement } from 'react';
 import CustomToast from '../components/CustomToast';
 
 const poppins = Poppins({
-	weight: ['900','800','600'],
+	weight: ['900', '800', '600'],
 	style: ['normal', 'italic'],
 	subsets: ['latin'],
 	fallback: ['sans-serif'],
