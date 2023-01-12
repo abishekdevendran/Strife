@@ -79,8 +79,8 @@ const Navbar = () => {
 		}
 	}, [isOpen]);
 	return (
-		<div className="navbar absolute z-50 top-0 left-0 bg-base-300">
-			<div className="flex-1">
+		<div className="navbar fixed z-[2] top-0 left-0 bg-base-300 px-8">
+			<div className="flex-1 -ml-2">
 				<Link className="btn btn-ghost normal-case" href={'/'}>
 					<h1 className="text-4xl font-black tracking-tight">Strife</h1>
 				</Link>

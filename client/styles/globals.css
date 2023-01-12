@@ -13,6 +13,14 @@ body,#__next {
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
+
+	
+	background-color: hsl(var(--b1));
+	background-image: radial-gradient(hsl(var(--a)) 1.1px, transparent 1.1px),
+		radial-gradient(hsl(var(--a)) 1.1px, hsl(var(--b1)) 1.1px);
+	background-size: 44px 44px;
+	background-position: 0 0, 22px 22px;
 }
 .page {
 	background-color: hsl(var(--b1));
@@ -21,6 +29,12 @@ body,#__next {
 		radial-gradient(hsl(var(--a)) 1.1px, hsl(var(--b1)) 1.1px);
 	background-size: 44px 44px;
 	background-position: 0 0, 22px 22px;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
 }
 /* base layer */
 @layer base {
