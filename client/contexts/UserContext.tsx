@@ -25,22 +25,12 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 	} = SWRImmutable(
 		'/api/user',
 		async () => {
-			const res = await toast.promise(
-				fetch('/api/user', {
-					// no cache
-					headers: {
-						'Cache-Control': 'no-cache',
-					},
-				}),
-				{
-					loading: 'Loading...',
-					success: 'Success!',
-					error: 'Server temporarily unavailable.',
-				},{
-					position: 'top-right',
-
-				}
-			);
+			const res = await fetch('/api/user', {
+				// no cache
+				headers: {
+					'Cache-Control': 'no-cache',
+				},
+			});
 			if (res.ok) {
 				const data = await res.json();
 				console.log(data);

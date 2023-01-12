@@ -6,7 +6,7 @@ const GithubOAuth = () => {
 		<button
 			onClick={() => window.open(URL, '_self')}
 			type="reset"
-			className="btn btn-secondary w-full mt-4 disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
+			className="btn btn-secondary w-full disabled:btn-disabled btn-md lg:btn-lg"
 		>
 			Github
 		</button>

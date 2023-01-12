@@ -32,7 +32,7 @@ const LogoutButton = () => {
 		<button
 			onClick={onClick}
 			disabled={!interactive}
-			className={`btn disabled:btn-disabled btn-sm md:btn-md lg:btn-lg`}
+			className={`btn disabled:btn-disabled btn-md lg:btn-lg`}
 		>
 			Logout
 		</button>

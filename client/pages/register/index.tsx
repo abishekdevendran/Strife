@@ -75,9 +75,11 @@ const Register = () => {
 				<meta name="description" content="Strife Register" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-			<div className="page w-full min-h-full flex justify-center items-center">
-				<div className="card w-96 flex items-center bg-base-300 py-12 px-8 mt-32 mb-16">
-					<h2 className="prose text-5xl font-extrabold mb-8">Register</h2>
+			<div className="card lg:card-side bg-base-300 shadow-xl flex items-center justify-center mt-20">
+				<h2 className="lg:-rotate-90 card-title prose text-7xl lg:text-8xl lg:-mx-20 font-extrabold mt-8 lg:opacity-75 lg:mb-6">
+					Register
+				</h2>
+				<div className="card-body w-96 flex items-center pb-12 px-8">
 					<form
 						onSubmit={handleSubmit(submitHandler)}
 						className="form-control w-full"
@@ -117,13 +119,13 @@ const Register = () => {
 							<span className="w-full grid grid-cols-2 gap-x-4 mt-4">
 								<button
 									type="submit"
-									className="btn btn-primary disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
+									className="btn btn-primary disabled:btn-disabled btn-md lg:btn-lg"
 								>
 									Submit
 								</button>
 								<button
 									type="reset"
-									className="btn btn-outline disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
+									className="btn btn-outline disabled:btn-disabled btn-md lg:btn-lg"
 									onClick={() => router.push('/login')}
 								>
 									Login
@@ -131,6 +133,7 @@ const Register = () => {
 							</span>
 						</fieldset>
 					</form>
+					<div className="divider w-full">OR</div>
 					<GithubOAuth />
 				</div>
 			</div>

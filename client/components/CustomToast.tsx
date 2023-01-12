@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 const CustomToast = ({ t }: { t: Toast }) => {
 	const toastClassMaker = () => {
 		let name =
-			`alert shadow-lg md:min-w-[25%] min-w-[80%] max-w-fit flex px-4 py-2 bg-neutral text-accent` + ' '; //ensure gap at end here for concat
+			`alert shadow-lg min-w-[60%] md:min-w-[25%] max-w-[80%] md:max-w-[70%] max-w-fit flex px-4 py-2 bg-neutral text-accent` +
+			' '; //ensure gap at end here for concat
 		switch (t.type) {
 			case 'success':
 				name += 'btn-success';
@@ -35,7 +36,7 @@ const CustomToast = ({ t }: { t: Toast }) => {
 		>
 			{resolveValue(t.message, t)}
 			<button
-				className="btn rounded-btn btn-outline border-accent"
+				className="btn rounded-btn btn-outline border-accent hidden md:block"
 				onClick={() => toast.dismiss(t.id)}
 			>
 				<IoCloseSharp className="fill-accent" />

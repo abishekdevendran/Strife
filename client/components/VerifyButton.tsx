@@ -39,7 +39,11 @@ const VerifyButton = ({ user }: any) => {
 					</span>
 				</>
 			)}
-			<button onClick={regenerateHandler} disabled={!interactive}>
+			<button
+				onClick={regenerateHandler}
+				disabled={!interactive}
+				className="btn disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
+			>
 				Regenerate
 			</button>
 		</div>

@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { toast } from 'react-hot-toast';
 import UserContext from '../contexts/UserContext';
 import LogoutButton from './LogoutButton';
+import { toast } from 'react-hot-toast';
 
 const BiSun = dynamic(
 	() =>
@@ -33,26 +33,22 @@ const Navbar = () => {
 	const themeMenu = useRef<HTMLDivElement>(null);
 	const themeMenuButton = useRef<HTMLDivElement>(null);
 	const themeHandler = () => {
+		toast.success('Theme changed!');
 		switch (theme) {
 			case 'pastel':
 				setTheme('dark');
-				toast.success('Dark');
 				break;
 			case 'dark':
 				setTheme('valentine');
-				toast.success('Valentine');
 				break;
 			case 'valentine':
 				setTheme('night');
-				toast.success('Night');
 				break;
 			case 'night':
 				setTheme('pastel');
-				toast.success('Pastel');
 				break;
 			default:
 				setTheme('pastel');
-				toast.success('Pastel');
 		}
 	};
 	const themeIcon = () => {
@@ -86,50 +82,53 @@ const Navbar = () => {
 				</Link>
 			</div>
 			<div className="flex-none">
-				<div
-					className="w-10 flex justify-center cursor-pointer hover:scale-110"
-					onClick={themeHandler}
-				>
-					{mounted && themeIcon()}
-				</div>
-				{user&&<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
-					<div
-						tabIndex={0}
-						className="btn btn-ghost btn-circle avatar select-none"
-						ref={themeMenuButton}
-						onBlur={(e) => {
-							setIsOpen(false);
-						}}
-						onClick={(e) => {
-							if (isOpen) {
-								setIsOpen(false);
-							} else {
-								setIsOpen(true);
-							}
-						}}
-					>
-						<div className="w-10 rounded-full">
-							<img src="/defaultAvatar.jpg" />
+				<div onClick={themeHandler}>
+					{mounted && (
+						<div
+							className="tooltip tooltip-left tooltip-success w-10 flex justify-center cursor-pointer hover:scale-110"
+							data-tip={theme}
+						>
+							{themeIcon()}
 						</div>
+					)}
+				</div>
+				{user && (
+					<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
+						<div
+							tabIndex={0}
+							className="btn btn-ghost btn-circle avatar select-none"
+							ref={themeMenuButton}
+							onBlur={(e) => {
+								setIsOpen(false);
+							}}
+							onClick={(e) => {
+								if (isOpen) {
+									setIsOpen(false);
+								} else {
+									setIsOpen(true);
+								}
+							}}
+						>
+							<div className="w-10 rounded-full">
+								<img src="/defaultAvatar.jpg" />
+							</div>
+						</div>
+						<ul
+							tabIndex={0}
+							className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 transition-all delay-150"
+						>
+							<li className="justify-between">
+								<Link href="/dashboard">Profile</Link>
+							</li>
+							<li>
+								<a>Settings</a>
+							</li>
+							<li>
+								<LogoutButton />
+							</li>
+						</ul>
 					</div>
-					<ul
-						tabIndex={0}
-						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 transition-all delay-150"
-					>
-						<li>
-							<a className="justify-between">
-								Profile
-								<span className="badge">New</span>
-							</a>
-						</li>
-						<li>
-							<a>Settings</a>
-						</li>
-						<li>
-							<LogoutButton/>
-						</li>
-					</ul>
-				</div>}
+				)}
 			</div>
 		</div>
 	);
