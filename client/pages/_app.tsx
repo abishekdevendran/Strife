@@ -1,12 +1,13 @@
 import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from '../contexts/UserContext';
-import AuthGuard from '../components/AuthGuard';
 import { Poppins } from '@next/font/google';
 import Layout from '../components/Layout';
 // import { ThemeProvider } from '../contexts/ThemeContext';
 import { ThemeProvider } from 'next-themes';
 import CustomToast from '../components/CustomToast';
+import { AnimatePresence } from 'framer-motion';
+import { AppProps } from 'next/app';
 
 const poppins = Poppins({
 	weight: ['900', '800', '600'],
@@ -17,13 +18,7 @@ const poppins = Poppins({
 	display: 'swap',
 });
 
-export default function App({
-	Component,
-	pageProps,
-}: {
-	Component: any;
-	pageProps: any;
-}) {
+export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<ThemeProvider themes={['pastel', 'dark', 'valentine', 'night']}>
 			<div
@@ -31,16 +26,10 @@ export default function App({
 			>
 				<UserProvider>
 					<Layout>
-						{Component.requireAuth ? (
-							<AuthGuard>
-								<Component {...pageProps} />
-							</AuthGuard>
-						) : (
-							<Component {...pageProps} />
-						)}
+						<Component {...pageProps} />
 					</Layout>
-					<Toaster>{(t) => <CustomToast t={t} />}</Toaster>
 				</UserProvider>
+				<Toaster>{(t) => <CustomToast t={t} />}</Toaster>
 			</div>
 		</ThemeProvider>
 	);

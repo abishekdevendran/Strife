@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import LogoutButton from '../../components/LogoutButton';
 import VerifyButton from '../../components/VerifyButton';
 import dayjs from 'dayjs';
 import Head from 'next/head';
-import UserContext from '../../contexts/UserContext';
 import { toast } from 'react-hot-toast';
+import WithAuth from '../../components/WithAuth';
+import IUser from '../../types/User';
+import UserContext from '../../contexts/UserContext';
 
-const Dashboard = () => {
-	const { user } = useContext(UserContext);
+// {user}:{user:IUser}
+const Dashboard = ({ user }: { user: IUser }) => {
+	// const { user } = React.useContext(UserContext);
 	if (!user) {
 		//this never happens because of AuthGuard, left here for Typescript to be happy
 		toast.error('You are not logged in');
@@ -33,5 +36,4 @@ const Dashboard = () => {
 	);
 };
 
-Dashboard.requireAuth = true;
-export default Dashboard;
+export default WithAuth(Dashboard);

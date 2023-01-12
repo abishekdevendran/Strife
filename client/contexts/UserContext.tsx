@@ -37,7 +37,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 					success: 'Success!',
 					error: 'Server temporarily unavailable.',
 				},{
-					position: 'bottom-center',
+					position: 'top-right',
 
 				}
 			);
