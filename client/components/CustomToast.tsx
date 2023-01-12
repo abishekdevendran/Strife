@@ -9,7 +9,7 @@ const CustomToast = ({ t }: { t: Toast }) => {
 	}, []);
 	const toastClassMaker = () => {
 		let name =
-			`alert shadow-lg w-64 min-w-40 flex px-4 py-2 bg-neutral text-accent` + ' '; //ensure gap at end here for concat
+			`alert shadow-lg md:min-w-[25%] min-w-[80%] max-w-fit flex px-4 py-2 bg-neutral text-accent` + ' '; //ensure gap at end here for concat
 		switch (t.type) {
 			case 'success':
 				name += 'btn-success';

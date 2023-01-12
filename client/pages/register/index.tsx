@@ -115,12 +115,15 @@ const Register = () => {
 							/>
 							<p>{errors.email?.message}</p>
 							<span className="w-full grid grid-cols-2 gap-x-4 mt-4">
-								<button type="submit" className="btn btn-primary">
+								<button
+									type="submit"
+									className="btn btn-primary disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
+								>
 									Submit
 								</button>
 								<button
 									type="reset"
-									className="btn btn-outline"
+									className="btn btn-outline disabled:btn-disabled btn-sm md:btn-md lg:btn-lg"
 									onClick={() => router.push('/login')}
 								>
 									Login
