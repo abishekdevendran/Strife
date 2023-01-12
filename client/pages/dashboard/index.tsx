@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LogoutButton from '../../components/LogoutButton';
 import VerifyButton from '../../components/VerifyButton';
 import dayjs from 'dayjs';
@@ -16,6 +16,10 @@ const Dashboard = ({ user }: { user: IUser }) => {
 		toast.error('You are not logged in');
 		return <div>Redirecting...</div>;
 	}
+	useEffect(() => {
+		console.log('mounted');
+	}, []);
+
 	return (
 		<>
 			<Head>
@@ -25,12 +29,14 @@ const Dashboard = ({ user }: { user: IUser }) => {
 			</Head>
 			<div className="card bg-base-300 sm:p-16 sm:py-20 p-8 py-12">
 				<h2 className="prose text-5xl font-extrabold mb-8">Dashboard</h2>
-				<p>Username: {user.username}</p>
-				<p>Email: {user.email}</p>
-				<p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
-				<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
-				<LogoutButton />
+				<div className='mb-10'>
+					<p>Username: {user.username}</p>
+					<p>Email: {user.email}</p>
+					<p>Created At: {dayjs(user.createdAt).format('MMMM D, YYYY')}</p>
+					<p>Verified: {user.isVerified ? 'True' : 'False'}</p>
+				</div>
 				{!user.isVerified && <VerifyButton user={user} />}
+				<LogoutButton />
 			</div>
 		</>
 	);

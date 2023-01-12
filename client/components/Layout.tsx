@@ -20,8 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 					className="motionMain page"
 					transition={{
 						type: 'spring',
-						stiffness: 300,
-						damping: 50,
+						stiffness: 100,
 					}}
 					key={router.asPath}
 				>
