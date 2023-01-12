@@ -60,15 +60,15 @@ const Login = () => {
 				const result = await response.json();
 				console.error(result);
 				toast.error(result.message);
+				setInteractive(true);
 			} else {
 				toast.success('Login successful. Redirecting...');
-				router.push('/dashboard');
 				mutate();
 			}
 		} catch (error) {
 			console.error(error);
+			setInteractive(true);
 		}
-		setInteractive(true);
 	};
 	if (isLoading) return <LoadingPage />;
 	return (

@@ -14,6 +14,7 @@ const WithAuth = (Child: any) => {
 		useEffect(() => {
 			if (!isLoading) {
 				if (!user) {
+					console.log('redirecting');
 					const redirect = router.asPath;
 					router.push({
 						pathname: '/login',

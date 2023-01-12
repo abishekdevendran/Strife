@@ -4,9 +4,6 @@ import { IoCloseSharp } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 
 const CustomToast = ({ t }: { t: Toast }) => {
-	useEffect(() => {
-		console.log(t.style);
-	}, []);
 	const toastClassMaker = () => {
 		let name =
 			`alert shadow-lg md:min-w-[25%] min-w-[80%] max-w-fit flex px-4 py-2 bg-neutral text-accent` + ' '; //ensure gap at end here for concat

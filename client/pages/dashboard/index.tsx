@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LogoutButton from '../../components/LogoutButton';
 import VerifyButton from '../../components/VerifyButton';
 import dayjs from 'dayjs';
@@ -16,6 +16,10 @@ const Dashboard = ({ user }: { user: IUser }) => {
 		toast.error('You are not logged in');
 		return <div>Redirecting...</div>;
 	}
+	useEffect(() => {
+		console.log('mounted');
+	}, []);
+	
 	return (
 		<>
 			<Head>
