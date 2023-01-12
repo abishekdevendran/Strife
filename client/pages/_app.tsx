@@ -6,8 +6,9 @@ import Layout from '../components/Layout';
 // import { ThemeProvider } from '../contexts/ThemeContext';
 import { ThemeProvider } from 'next-themes';
 import CustomToast from '../components/CustomToast';
-import { AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/app';
+import SEO from '../helpers/seoOptions';
+import { DefaultSeo } from 'next-seo';
 
 const poppins = Poppins({
 	weight: ['900', '800', '600'],
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			>
 				<UserProvider>
 					<Layout>
+						<DefaultSeo {...SEO} />
 						<Component {...pageProps} />
 					</Layout>
 				</UserProvider>

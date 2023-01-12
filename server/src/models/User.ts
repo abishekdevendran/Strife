@@ -10,6 +10,7 @@ export interface Tuser extends mongoose.Document {
 	isBanned: boolean;
 	// array of user ids
 	friends: string[];
+	servers: string[];
 }
 
 const userSchema = new mongoose.Schema({
@@ -22,6 +23,7 @@ const userSchema = new mongoose.Schema({
 	isBanned: Boolean,
 	//array of user ids
 	friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+	servers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Server' }],
 });
 
 export default mongoose.model('User', userSchema);
