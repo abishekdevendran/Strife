@@ -6,6 +6,9 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
+import http from 'http';
+import { Server } from 'socket.io';
+
 import root from './routes/_index';
 import login from './routes/login';
 import register from './routes/register';
@@ -15,6 +18,9 @@ import { Tuser } from './models/User';
 dotenv.config();
 
 const app: Express = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
 const PORT = process.env.PORT!;
 
 declare module 'express-session' {
@@ -39,6 +45,6 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/verify', verify);
 app.use('/user', user);
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
