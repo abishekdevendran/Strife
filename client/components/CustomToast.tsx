@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const CustomToast = ({ t }: { t: Toast }) => {
 	const toastClassMaker = () => {
 		let name =
-			`alert shadow-lg min-w-[60%] md:min-w-[25%] max-w-[80%] md:max-w-[70%] max-w-fit flex px-4 py-2 bg-neutral text-accent` +
+			`alert shadow-lg min-w-[60%] md:min-w-[25%] max-w-[80%] md:max-w-[70%] w-fit flex px-4 py-2 bg-neutral text-accent` +
 			' '; //ensure gap at end here for concat
 		switch (t.type) {
 			case 'success':

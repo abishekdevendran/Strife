@@ -33,7 +33,7 @@ const Navbar = () => {
 	const themeMenu = useRef<HTMLDivElement>(null);
 	const themeMenuButton = useRef<HTMLDivElement>(null);
 	const themeHandler = () => {
-		// toast.success('Theme changed!');
+		toast.success('Theme changed!');
 		switch (theme) {
 			case 'pastel':
 				setTheme('dark');
