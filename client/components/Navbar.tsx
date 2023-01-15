@@ -5,6 +5,7 @@ import Link from 'next/link';
 import UserContext from '../contexts/UserContext';
 import LogoutButton from './LogoutButton';
 import { toast } from 'react-hot-toast';
+import Notifications from './Notifications';
 
 const BiSun = dynamic(
 	() =>
@@ -92,6 +93,7 @@ const Navbar = () => {
 						</div>
 					)}
 				</div>
+				{user && <Notifications />}
 				{user && (
 					<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
 						<div

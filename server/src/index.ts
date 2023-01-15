@@ -51,7 +51,9 @@ app.use('/register', register);
 app.use('/verify', verify);
 app.use('/user', user);
 app.use('/server', serverRoute);
+//TODO: add server CRUD
 //TODO: add Socket.io routing
+//TODO: add friends online/offline status
 server.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });

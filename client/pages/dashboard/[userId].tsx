@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWRImmutable from 'swr/immutable';
 import LoadingPage from '../../components/LoadingPage';
+import WithAuth from '../../components/WithAuth';
 import UserContext from '../../contexts/UserContext';
 
 const friendDashboard = () => {
@@ -58,5 +59,4 @@ const friendDashboard = () => {
 	);
 };
 
-friendDashboard.requireAuth = true;
-export default friendDashboard;
+export default WithAuth(friendDashboard);
