@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import useSWRImmutable from 'swr/immutable';
 import LoadingPage from '../../components/LoadingPage';
+import WithAuth from '../../components/WithAuth';
 import UserContext from '../../contexts/UserContext';
 
 const Token = () => {
@@ -37,4 +38,4 @@ const Token = () => {
 	return null;
 };
 
-export default Token;
+export default WithAuth(Token);
