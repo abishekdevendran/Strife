@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import WithAuth from '../../../components/WithAuth';
 import IUser from '../../../types/User';
@@ -10,8 +10,10 @@ import {
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import UserContext from '../../../contexts/UserContext';
 
 const NewServer = ({ user }: { user: IUser }) => {
+	const { mutate } = useContext(UserContext);
 	const router = useRouter();
 	const [interactive, setInteractive] = useState(true);
 	const {
@@ -43,6 +45,7 @@ const NewServer = ({ user }: { user: IUser }) => {
 				return;
 			}
 			toast.success('Server created!');
+			mutate();
 			router.push('/dashboard');
 		} catch (err) {
 			toast.error('Server temporarily unavailable. Please try again later.');

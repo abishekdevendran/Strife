@@ -55,6 +55,7 @@ const Login = () => {
 					toast.error(
 						'Server temporarily unavailable. Please try again later.'
 					);
+					setInteractive(true);
 					return;
 				}
 				const result = await response.json();

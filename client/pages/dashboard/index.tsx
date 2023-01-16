@@ -13,7 +13,7 @@ const serverRender = (servers: IServer[] | undefined) => {
 		return (
 			<div className="text-center">
 				Not part of any servers yet.{' '}
-				<Link href={'/dashboard/new'} className={'underline text-info'}>
+				<Link href={'/server/new'} className={'underline text-info'}>
 					Create One!
 				</Link>
 			</div>
@@ -27,9 +27,9 @@ const serverRender = (servers: IServer[] | undefined) => {
 					const { name, _id, description } = server;
 					return (
 						<Link
-							className="avatar h-12 w-12 text-center flex justify-center items-center rounded-full hover:scale-90"
+							className="avatar h-12 w-12 text-center flex justify-center items-center rounded-full hover:scale-90 bg-base-300"
 							key={_id}
-							href={''}
+							href={`/server/${_id}`}
 						>
 							{name[0].toUpperCase()}
 						</Link>

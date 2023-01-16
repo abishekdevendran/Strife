@@ -126,6 +126,9 @@ const Navbar = () => {
 								<a>Settings</a>
 							</li>
 							<li>
+								<Link href="/server/new">New Server</Link>
+							</li>
+							<li>
 								<LogoutButton />
 							</li>
 						</ul>
