@@ -26,19 +26,19 @@ const countNotifications = (notifications: any) => {
 };
 
 const renderNotifications = (notifications: any) => {
-  notifications.forEach((notification: any) => {
-    return (notification.forEach((n: any) => {
-      return (
-        <li>
-          <Link href={n.link}>
-            <a className="btn">{n.message}</a>
-          </Link>
-        </li>
-      );
-    }))
-  });
-  return <div className="btn">No New Notifications</div>;
-}
+	notifications.forEach((notification: any) => {
+		return notification.forEach((n: any) => {
+			return (
+				<li>
+					<Link href={n.link}>
+						<a className="btn">{n.message}</a>
+					</Link>
+				</li>
+			);
+		});
+	});
+	return <div className="btn">No New Notifications</div>;
+};
 
 const Notifications = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -66,7 +66,7 @@ const Notifications = () => {
 		}
 	}, [isOpen]);
 	useEffect(() => {
-    if(!notifications) return;
+		if (!notifications) return;
 		if (notifications.length > 0) {
 			if (alertsCount < 0) {
 				setAlertsCount(countNotifications(notifications));
@@ -78,7 +78,7 @@ const Notifications = () => {
 		}
 	}, [notifications]);
 	return (
-		<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
+		<div className="dropdown dropdown-end ml-2 static" ref={themeMenu}>
 			<div
 				tabIndex={0}
 				className={'select-none'}
@@ -96,14 +96,18 @@ const Notifications = () => {
 			>
 				<div className="ml-2 w-10 flex justify-center cursor-pointer hover:scale-110">
 					<MdOutlineNotificationsNone className="h-full w-full" />
-					{!isLoading && <div>{notifications.length}</div>}
+					{!isLoading && notifications && <div>{notifications.length}</div>}
 				</div>
 			</div>
 			<ul
 				tabIndex={0}
-				className="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-96 transition-all delay-150"
+				className="menu dropdown-content max-md:absolute max-md:left-1/2 max-md:translate-x-[-50%] mt-3 p-2 shadow bg-base-100 rounded-box w-96 transition-all delay-150"
 			>
-				{alertsCount<=0 ? <div className="btn">No New Notifications</div> : renderNotifications(notifications)}
+				{alertsCount <= 0 ? (
+					<div className="btn">No New Notifications</div>
+				) : (
+					renderNotifications(notifications)
+				)}
 			</ul>
 		</div>
 	);

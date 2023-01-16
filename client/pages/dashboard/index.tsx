@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import LogoutButton from '../../components/LogoutButton';
 import VerifyButton from '../../components/VerifyButton';
 import dayjs from 'dayjs';
@@ -6,18 +6,37 @@ import Head from 'next/head';
 import { toast } from 'react-hot-toast';
 import WithAuth from '../../components/WithAuth';
 import IUser, { IServer } from '../../types/User';
+import Link from 'next/link';
 
 const serverRender = (servers: IServer[] | undefined) => {
 	if (!servers || servers.length === 0) {
-		return <div className='text-center'>Not part of any servers yet. Create one!</div>;
+		return (
+			<div className="text-center">
+				Not part of any servers yet.{' '}
+				<Link href={'/dashboard/new'} className={'underline text-info'}>
+					Create One!
+				</Link>
+			</div>
+		);
 	}
 	return (
-		<>
-			{servers.forEach((server: any) => {
-				const { name, id } = server;
-				return <div className="avatar">{JSON.stringify(name[0])}</div>;
-			})}
-		</>
+		<div>
+			<h3>Servers:</h3>
+			<div className="avatar-group -space-x-6 flex justify-center">
+				{servers.map((server: any) => {
+					const { name, _id, description } = server;
+					return (
+						<Link
+							className="avatar h-12 w-12 text-center flex justify-center items-center rounded-full hover:scale-90"
+							key={_id}
+							href={''}
+						>
+							{name[0].toUpperCase()}
+						</Link>
+					);
+				})}
+			</div>
+		</div>
 	);
 };
 
@@ -26,12 +45,23 @@ const friendsRender = (friends: IUser[] | undefined) => {
 		return <div className="text-center">No friends yet. :(</div>;
 	}
 	return (
-		<>
-			{friends.forEach((friend: any) => {
-				const { username, id } = friend;
-				return <div className="avatar">{JSON.stringify(username[0])}</div>;
-			})}
-		</>
+		<div>
+			<h3>Servers:</h3>
+			<div className="avatar-group -space-x-6 flex justify-center">
+				{friends.map((friend: any) => {
+					const { name, _id } = friend;
+					return (
+						<Link
+							className="avatar h-12 w-12 text-center flex justify-center items-center rounded-full hover:scale-90"
+							key={_id}
+							href={''}
+						>
+							{name[0].toUpperCase()}
+						</Link>
+					);
+				})}
+			</div>
+		</div>
 	);
 };
 // {user}:{user:IUser}
@@ -41,10 +71,10 @@ const Dashboard = ({ user }: { user: IUser }) => {
 		toast.error('You are not logged in');
 		return <div>Redirecting...</div>;
 	}
-	useEffect(() => {
-		console.log('mounted');
-		console.log(user);
-	}, []);
+	// useEffect(() => {
+	// 	console.log('mounted');
+	// 	// console.log(user);
+	// }, []);
 
 	return (
 		<>
@@ -67,10 +97,10 @@ const Dashboard = ({ user }: { user: IUser }) => {
 					{!user.isVerified && <VerifyButton user={user} />}
 					<LogoutButton />
 				</div>
-				<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
+				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
 					{serverRender(user.servers)}
 				</div>
-				<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
+				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
 					{friendsRender(user.friends)}
 				</div>
 			</div>

@@ -95,7 +95,7 @@ const Navbar = () => {
 				</div>
 				{user && <Notifications />}
 				{user && (
-					<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
+					<div className="dropdown dropdown-end ml-4" ref={themeMenu}>
 						<div
 							tabIndex={0}
 							className="btn btn-ghost btn-circle avatar select-none"
