@@ -22,11 +22,14 @@ const app: Express = express();
 const server = http.createServer(app);
 const io = new Server(server, {
 	cors: {
-		origin: [process.env.FRONTEND_URL!, 'http://localhost:3000'],
+		origin: process.env.NODE_ENV === 'production'
+			? process.env.FRONTEND_URL!
+			: 'http://localhost:3000',
+		methods: ['GET', 'POST']
 	},
 });
-
 const PORT = process.env.PORT!;
+
 
 declare module 'express-session' {
 	interface SessionData {
@@ -38,7 +41,10 @@ app.use(helmet());
 app.use(
 	cors({
 		credentials: true,
-		origin: [process.env.FRONTEND_URL!, 'http://localhost:3000'],
+		origin:
+			process.env.NODE_ENV === 'production'
+				? process.env.FRONTEND_URL!
+				: 'http://localhost:3000',
 	})
 );
 app.use(morgan('tiny'));
@@ -54,6 +60,10 @@ app.use('/server', serverRoute);
 //TODO: add server CRUD
 //TODO: add Socket.io routing
 //TODO: add friends online/offline status
+io.on('connection', (socket) => {
+	console.log('a user connected');
+	app.set('socket', socket);
+});
 server.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
