@@ -4,18 +4,22 @@
 
 * {
 	user-select: none;
+	transition-property: none;
+}
+serverBar::-webkit-scrollbar {
+	display: none;
 }
 html {
 	scroll-behavior: smooth;
 }
-body,#__next {
+body,
+#__next {
 	width: 100%;
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
 
-	
 	background-color: hsl(var(--b1));
 	background-image: radial-gradient(hsl(var(--a)) 1.1px, transparent 1.1px),
 		radial-gradient(hsl(var(--a)) 1.1px, hsl(var(--b1)) 1.1px);
@@ -24,7 +28,7 @@ body,#__next {
 }
 .page {
 	background-color: hsl(var(--b1));
-	opacity: 0.8;
+	opacity: 1;
 	background-image: radial-gradient(hsl(var(--a)) 1.1px, transparent 1.1px),
 		radial-gradient(hsl(var(--a)) 1.1px, hsl(var(--b1)) 1.1px);
 	background-size: 44px 44px;

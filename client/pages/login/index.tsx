@@ -55,6 +55,7 @@ const Login = () => {
 					toast.error(
 						'Server temporarily unavailable. Please try again later.'
 					);
+					setInteractive(true);
 					return;
 				}
 				const result = await response.json();
@@ -79,7 +80,7 @@ const Login = () => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<div className="card lg:card-side bg-base-300 shadow-xl flex items-center justify-center">
-				<h2 className="lg:-rotate-90 card-title prose text-7xl lg:text-8xl lg:-mx-12 font-extrabold mt-8 lg:opacity-75 lg:mb-6 pointer-events-none">
+				<h2 className="lg:-rotate-90 card-title  text-7xl lg:text-8xl lg:-mx-12 font-extrabold mt-8 lg:opacity-75 lg:mb-6 pointer-events-none">
 					Login
 				</h2>
 				<div className="card-body w-96 flex items-center pb-12 px-8">

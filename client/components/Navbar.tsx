@@ -95,7 +95,7 @@ const Navbar = () => {
 				</div>
 				{user && <Notifications />}
 				{user && (
-					<div className="dropdown dropdown-end ml-2" ref={themeMenu}>
+					<div className="dropdown dropdown-end ml-4" ref={themeMenu}>
 						<div
 							tabIndex={0}
 							className="btn btn-ghost btn-circle avatar select-none"
@@ -117,13 +117,16 @@ const Navbar = () => {
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 transition-all delay-150"
+							className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 						>
 							<li className="justify-between">
 								<Link href="/dashboard">Profile</Link>
 							</li>
 							<li>
 								<a>Settings</a>
+							</li>
+							<li>
+								<Link href="/server/new">New Server</Link>
 							</li>
 							<li>
 								<LogoutButton />

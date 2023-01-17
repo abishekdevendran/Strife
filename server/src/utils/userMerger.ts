@@ -28,6 +28,11 @@ export default async function userMerger(json: any, req: Request) {
 		const gitEmails: any = await emails.json();
 
 		if (req.session.user) {
+			//check if github id exists in database
+			const existingUser = await User.findOne({ githubID: gitUser.id });
+			if (existingUser) {
+				return { message: 'Github account already in use.', status: 200 };
+			}
 			const dbUser = await User.findOne({ email: req.session.user.email });
 			dbUser!.githubID = gitUser.id;
 			await dbUser!.save();

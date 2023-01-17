@@ -7,9 +7,10 @@ const userDataController = async (req: Request, res: Response) => {
 		res.status(401).send({ message: 'User not logged in' });
 	} else {
 		if (req.params.userId) {
+			console.log(req.params.userId);
 			let censoredUser: any = await User.findById(req.params.userId);
 			if (!censoredUser) {
-				res.status(404).send({ message: 'User not found' });
+				return res.status(404).send({ message: 'User not found' });
 			}
 			//delete password, email, and githubID from censoredUser
 			['password', 'email', 'githubID'].forEach(

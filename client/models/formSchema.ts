@@ -25,5 +25,12 @@ export const registerFormSchema = z.object({
 	email: z.string().email({ message: 'Not a valid email address' }),
 });
 
+export const createServerSchema = z.object({
+	name: z.string().min(5).max(20),
+	description: z.string().optional(),
+	isPrivate: z.boolean().default(false),
+});
+
 export type loginFormSchemaType = z.infer<typeof loginFormSchema>;
 export type registerFormSchemaType = z.infer<typeof registerFormSchema>;
+export type createServerSchemaType = z.infer<typeof createServerSchema>;
