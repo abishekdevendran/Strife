@@ -50,13 +50,13 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 				<meta name="description" content="User Dashboard" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-			<div className="card bg-base-200 p-4 mt-20 flex flex-col items-center justify-between gap-4">
+			<div className="container card mx-4 ml-32 bg-base-200 p-4 mt-20 flex flex-col items-center justify-between gap-4">
 				<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
-					<h2 className="prose text-5xl font-extrabold mb-8 text-center">
+					<h2 className=" text-5xl font-extrabold mb-8 text-center">
 						{cachedServer.name}
 					</h2>
 					<div className="mb-10">
-						<p>Owner: {/* TODO */}</p>
+						<p>Owner: {cachedServer.owner.username}</p>
 						<p>
 							Created At: {dayjs(cachedServer.createdAt).format('MMMM D, YYYY')}
 						</p>

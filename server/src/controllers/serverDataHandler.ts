@@ -5,13 +5,22 @@ import User, { Tuser } from '../models/User';
 export default async function serverDataHandler(req: Request, res: Response) {
 	if (req.method === 'GET') {
 		try {
-			const server = await Server.findById(req.params.serverId);
-			if (!server) {
+			const serverItem = await Server.findById(req.params.serverId);
+			if (!serverItem) {
 				return res.status(404).json({ message: 'Server not found' });
 			}
+			const server= serverItem?.toJSON();
 			if (!req.session.user) {
 				delete (server as any).users;
 			}
+			//get data of server owner
+			const ownerId = server.users.find((user) => user.role === 'owner')?.user;
+			const owner = await User.findById(ownerId);
+			if (!owner) {
+				return res.status(404).json({ message: 'Server owner not found' });
+			}
+			(server as any).owner = owner;
+			console.log(server);
 			res.status(200).json({ server });
 		} catch (err) {
 			if (err instanceof Error) {

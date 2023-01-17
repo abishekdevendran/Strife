@@ -22,9 +22,7 @@ const poppins = Poppins({
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<ThemeProvider themes={['pastel', 'dark', 'valentine', 'night']}>
-			<div
-				className={`${poppins.className} transition-all delay-150 ease-in-out h-screen w-full`}
-			>
+			<div className={`${poppins.className} ease-in-out h-screen w-full transition-none`}>
 				<UserProvider>
 					<Layout>
 						<DefaultSeo {...SEO} />

@@ -101,7 +101,7 @@ const Notifications = () => {
 			</div>
 			<ul
 				tabIndex={0}
-				className="menu dropdown-content max-md:absolute max-md:left-1/2 max-md:translate-x-[-50%] mt-3 p-2 shadow bg-base-100 rounded-box w-96 transition-all delay-150"
+				className="menu dropdown-content max-md:absolute max-md:left-1/2 max-md:translate-x-[-50%] mt-3 p-2 shadow bg-base-100 rounded-box w-96"
 			>
 				{alertsCount <= 0 ? (
 					<div className="btn">No New Notifications</div>

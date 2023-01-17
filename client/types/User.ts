@@ -1,6 +1,7 @@
 export type IServer = {
 	name: string;
 	_id: string;
+	owner?: IUser;
 }
 
 type IUser = {

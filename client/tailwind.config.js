@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+	jit: true,
 	daisyui: {
 		themes: ['pastel', 'dark', 'valentine', 'night'],
 	},
@@ -14,8 +15,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [
-		require('@tailwindcss/typography'),
-		require('daisyui'),
-	],
+	plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };

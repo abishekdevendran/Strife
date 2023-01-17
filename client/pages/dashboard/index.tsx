@@ -85,7 +85,7 @@ const Dashboard = ({ user }: { user: IUser }) => {
 			</Head>
 			<div className="card bg-base-200 p-4 mt-20 flex flex-col items-center justify-between gap-4">
 				<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
-					<h2 className="prose text-5xl font-extrabold mb-8 text-center">
+					<h2 className=" text-5xl font-extrabold mb-8 text-center">
 						Dashboard
 					</h2>
 					<div className="mb-10">
