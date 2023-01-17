@@ -33,7 +33,11 @@ const nextConfig = {
 			{
 				source: '/api/:path*',
 				destination: `${backendURL}/:path*`,
-			}
+			},
+			{
+				source: '/socket.io/:path*',
+				destination: `${backendURL}/socket.io/?:path*`,
+			},
 		];
 	},
 	async headers() {

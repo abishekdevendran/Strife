@@ -7,6 +7,7 @@ import IUser from '../../types/User';
 import dayjs from 'dayjs';
 import Head from 'next/head';
 import WithAuth from '../../components/WithAuth';
+import ChatBar from '../../components/ChatBar';
 
 const serverDashboard = ({ user }: { user: IUser }) => {
 	const [cachedServer, setCachedServer] = useState<any>(null);
@@ -63,7 +64,7 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 					</div>
 				</div>
 				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
-					Hey
+					<ChatBar />
 				</div>
 				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
 					Hello
@@ -73,4 +74,7 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 	);
 };
 
+// serverDashboard.getLayout = (page: any) => {
+// 	return <ServerLayout>{page}</ServerLayout>
+// }
 export default WithAuth(serverDashboard);
