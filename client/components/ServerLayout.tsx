@@ -1,5 +1,13 @@
 import { AnimatePresence } from 'framer-motion';
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, {
+	cloneElement,
+	Fragment,
+	isValidElement,
+	ReactNode,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 import { motion } from 'framer-motion';
 import ServersBar from './ServersBar';
 import UserContext from '../contexts/UserContext';
@@ -7,6 +15,19 @@ import LoadingPage from './LoadingPage';
 import { toast } from 'react-hot-toast';
 import IUser from '../types/User';
 import { useRouter } from 'next/router';
+
+//function to take children and prop value, return a clone with prop passed to children
+const childrenWithProps = (children: any, user: IUser | null) => {
+	return children!.map((child: any, index: number) => {
+		if (isValidElement(child)) {
+			return (
+				<Fragment key={index}>
+					{cloneElement(child, { user } as Partial<unknown>)}
+				</Fragment>
+			);
+		}
+	});
+};
 
 const ServerLayout = ({ children }: { children: ReactNode }) => {
 	const router = useRouter();
@@ -48,11 +69,11 @@ const ServerLayout = ({ children }: { children: ReactNode }) => {
 					stiffness: 100,
 				}}
 			>
-				{isLoading && <LoadingPage />}
-				{!isLoading && user && (
+				{(isLoading || cachedUser === null) && <LoadingPage />}
+				{!isLoading && cachedUser !== null && (
 					<>
 						<ServersBar user={cachedUser} />
-						{children}
+						{childrenWithProps(children, cachedUser)}
 					</>
 				)}
 			</motion.main>
