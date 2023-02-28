@@ -35,7 +35,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 			});
 			socket.on('disconnect', () => {
 				console.log('disconnected');
-				toast.success('Socket disconnected');
+				toast.error('Socket disconnected');
 			});
 		}
 		return () => {
