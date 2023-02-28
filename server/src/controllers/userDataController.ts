@@ -41,7 +41,6 @@ const userDataController = async (req: Request, res: Response) => {
 			const serverData = await Server.find({ _id: { $in: mutualServers } });
 			censoredUser.mutualServers = serverData;
 			censoredUser.isFriend = isFriend;
-			console.log(censoredUser);
 			return res.status(200).send({ user: censoredUser });
 		}
 		let censoredUser: any = { ...req.session.user };

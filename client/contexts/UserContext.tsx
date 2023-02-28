@@ -35,6 +35,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 				const data = await res.json();
 				console.log(data);
 				return data.user;
+			} else if (res.status === 500) {
+				toast.error('Server unavailable, please try again later.');
 			}
 			return null;
 		},

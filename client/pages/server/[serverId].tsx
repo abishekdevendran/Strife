@@ -6,11 +6,12 @@ import useSWRImmutable from 'swr/immutable';
 import IUser from '../../types/User';
 import dayjs from 'dayjs';
 import Head from 'next/head';
-import WithAuth from '../../components/WithAuth';
 import ChatBar from '../../components/ChatBar';
+import JoinServerPage from '../../components/JoinServerPage';
 
 const serverDashboard = ({ user }: { user: IUser }) => {
 	const [cachedServer, setCachedServer] = useState<any>(null);
+	const [isMember, setIsMember] = useState<boolean>(false);
 	const router = useRouter();
 	const { query, isReady } = router;
 	if (!isReady) return <LoadingPage />;
@@ -18,6 +19,7 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 		data: server,
 		error,
 		isLoading,
+		mutate,
 	} = useSWRImmutable(
 		query ? '/api/server/' + query.serverId : null,
 		async () => {
@@ -30,8 +32,14 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 					return null;
 				}
 				console.log(data);
+				//if user is a part of server, set isMember to true
+				const bool = data.server.users.some((a: any) => {
+					return a.user === user._id;
+				});
+				bool ? setIsMember(true) : setIsMember(false);
 				return data.server;
 			} catch (err) {
+				console.log(err);
 				toast.error('Server unavailable, please try again later.');
 				return null;
 			}
@@ -50,26 +58,36 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 				<meta name="description" content="User Dashboard" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-			<div className="container card mx-4 ml-32 bg-base-200 p-4 mt-20 flex flex-col items-center justify-between gap-4">
-				<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
-					<h2 className=" text-5xl font-extrabold mb-8 text-center">
-						{cachedServer.name}
-					</h2>
-					<div className="mb-10">
-						<p>Owner: {cachedServer.owner.username}</p>
-						<p>
-							Created At: {dayjs(cachedServer.createdAt).format('MMMM D, YYYY')}
-						</p>
-						<p>isPrivate: {cachedServer.isPrivate ? 'True' : 'False'}</p>
+			{!isMember && isReady && (
+				<JoinServerPage
+					server={cachedServer}
+					serverId={query.serverId}
+					serverMutate={mutate}
+				/>
+			)}
+			{isMember && (
+				<div className="container card mx-4 ml-32 bg-base-200 p-4 mt-20 flex flex-col items-center justify-between gap-4">
+					<div className="w-full h-full card bg-base-300 sm:p-8 sm:py-10 p-4 py-6">
+						<h2 className=" text-5xl font-extrabold mb-8 text-center">
+							{cachedServer.name}
+						</h2>
+						<div className="mb-10">
+							<p>Owner: {cachedServer.owner.username}</p>
+							<p>
+								Created At:{' '}
+								{dayjs(cachedServer.createdAt).format('MMMM D, YYYY')}
+							</p>
+							<p>isPrivate: {cachedServer.isPrivate ? 'True' : 'False'}</p>
+						</div>
+					</div>
+					<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
+						<ChatBar />
+					</div>
+					<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
+						Hello
 					</div>
 				</div>
-				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
-					<ChatBar />
-				</div>
-				<div className="w-full h-full card bg-base-300 sm:p-6 sm:py-8 p-4 py-4">
-					Hello
-				</div>
-			</div>
+			)}
 		</>
 	);
 };
@@ -77,4 +95,4 @@ const serverDashboard = ({ user }: { user: IUser }) => {
 // serverDashboard.getLayout = (page: any) => {
 // 	return <ServerLayout>{page}</ServerLayout>
 // }
-export default WithAuth(serverDashboard);
+export default serverDashboard;

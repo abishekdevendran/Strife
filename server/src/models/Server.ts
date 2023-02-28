@@ -24,6 +24,7 @@ const serverSchema = new mongoose.Schema({
 				role: { type: String, enum: ['owner', 'admin', 'member'] },
 			},
 			required: false,
+			_id: false,
 		},
 	],
 });

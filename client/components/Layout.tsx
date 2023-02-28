@@ -9,35 +9,35 @@ const Layout = ({ children }: { children: ReactNode }) => {
 	const router = useRouter();
 	return (
 		<>
-			<SocketProvider>
-				<Navbar />
-				<AnimatePresence
-					initial={false}
-					mode="wait"
-					onExitComplete={() => window.scrollTo(0, 0)}
+			<Navbar />
+			<AnimatePresence
+				initial={false}
+				mode="wait"
+				onExitComplete={() => window.scrollTo(0, 0)}
+			>
+				<motion.main
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					className="motionMain page"
+					transition={{
+						type: 'spring',
+						stiffness: 100,
+					}}
+					key={
+						// This is to ensure that page isn't unmounted when navigating between server pages
+						router.pathname.startsWith('/server') ? 'server' : router.asPath
+					}
 				>
-					<motion.main
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className="motionMain page"
-						transition={{
-							type: 'spring',
-							stiffness: 100,
-						}}
-						key={
-							// This is to ensure that page isn't unmounted when navigating between server pages
-							router.pathname.startsWith('/server') ? 'server' : router.asPath
-						}
-					>
-						{router.pathname.startsWith('/server') ? (
+					{router.pathname.startsWith('/server') ? (
+						<SocketProvider>
 							<ServerLayout>{children}</ServerLayout>
-						) : (
-							children
-						)}
-					</motion.main>
-				</AnimatePresence>
-			</SocketProvider>
+						</SocketProvider>
+					) : (
+						children
+					)}
+				</motion.main>
+			</AnimatePresence>
 		</>
 	);
 };

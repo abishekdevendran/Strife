@@ -42,7 +42,7 @@ const ChatBar = () => {
 		<form className="form-control w-full" onSubmit={submitHandler}>
 			<fieldset
 				disabled={isDisabled}
-				className="form-control w-full flex flex-row items-center justify-cente"
+				className="form-control w-full flex flex-row items-center justify-center"
 			>
 				<input
 					type="text"
