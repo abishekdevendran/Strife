@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "nodemon src/index.ts",
-		"build": "tsc && node config/esbuild.js",
+		"build": "node config/esbuild.js",
 		"start": "node dist/build.js"
 	},
 	"keywords": [

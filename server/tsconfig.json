@@ -12,7 +12,7 @@
 		"resolveJsonModule": true,
 		"typeRoots": ["./node_modules/@types"],
 		"sourceMap": false,
-		"outDir": "dist",
+		"noEmit": true,
 		"strict": true,
 		"lib": ["esnext"],
 		"baseUrl": ".",
